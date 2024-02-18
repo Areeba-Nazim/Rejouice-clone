@@ -22,6 +22,160 @@ html {
   height: 100vh;
   overflow: hidden;
 }
+a {
+  text-decoration: none;
+}
+.open-menu-btn , .menu-close-btn {
+  cursor: pointer;
+}
+.menu-overlay {
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: #ff5f38;
+  position: absolute;
+  top: 0%;
+  z-index: 999;
+  pointer-events: none;
+  transition: clip-path 1s ease;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+
+.menu-overlay.active {
+  pointer-events: all;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.menu-nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1vw;
+}
+
+.menu-logo ,.menu-close-btn{
+  font-size: 1.5vw;
+}
+
+.menu-col{
+  display: flex;
+}
+
+.menu-col div {
+  flex: 1;
+}
+
+.video{
+  width: 50%;
+}
+
+.video-preview {
+  border-radius: 10px; 
+  background-color: #0e0e0e;
+  height: 0px;
+}
+
+.video-details{
+  padding-top: 1vw;
+  display: flex;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-links {
+  transform: translateY(120%);
+  opacity: 50%;
+}
+.menu-links a {
+  text-decoration: none;
+  font-size: 3.4vw;
+  color: #0e0e0e;
+  letter-spacing: -2px;
+  font-weight: 400;
+  position: relative;
+}
+
+.menu-links a::before {
+  content: "";
+  position: absolute;
+  top: 90%;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #0e0e0e;
+  transition: all 0.3s;
+}
+
+.menu-links:hover a::before{
+  width: 100%;
+}
+
+.btn {
+  margin: 2vw 0;
+}
+
+
+.btn a{
+  color: #000;
+  font-size: 1.1vw;
+  width: fit-content;
+  border: .1vw solid #0e0e0e;
+  padding: 1vw 1.9vw;
+  border-radius: 6px;
+  position: relative;
+}
+
+.btn a::before{
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #0e0e0e;
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.btn a:hover {
+  color: #ff5f38;
+}
+
+.btn:hover a::before{
+  width: 100%;
+}
+
+.menu-footer{
+  color: #0e0e0e;
+  margin-top: 2vw;
+}
+
+.menu-divider{
+  height: 1px;
+  width: 0%;
+  background-color: #0e0e0e;
+  margin-bottom: 1vw;
+}
+
+.menu-footer-last{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.socials {
+  display: flex;
+  gap: 1vw;
+}
+
+.socials a{
+  font-size: 1.2vw;
+  color: #0e0e0e;
+}
+
 #page1 #cursor {
   width: 7vw;
   height: 7vw;

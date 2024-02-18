@@ -9,16 +9,13 @@ let page4 = document.querySelector("#page4")
 let locoScroll = () => {
     gsap.registerPlugin(ScrollTrigger);
 
-// Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
 
 const locoScroll = new LocomotiveScroll({
   el: document.querySelector(".main"),
   smooth: true
 });
-// each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
 locoScroll.on("scroll", ScrollTrigger.update);
 
-// tell ScrollTrigger to use these proxy methods for the ".main" element since Locomotive Scroll is hijacking things
 ScrollTrigger.scrollerProxy(".main", {
   scrollTop(value) {
     return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
@@ -26,18 +23,71 @@ ScrollTrigger.scrollerProxy(".main", {
   getBoundingClientRect() {
     return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
   },
-  // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
   pinType: document.querySelector(".main").style.transform ? "transform" : "fixed"
 });
 
-// each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll. 
 ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
 
-// after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
 ScrollTrigger.refresh();
 
 }
 locoScroll();
+
+let navMenu = () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    let tl = gsap.timeline({ paused: true });
+    let menuOverlay = document.querySelector('.menu-overlay');
+    let isOpen = false;
+
+    let openMenu = () => {
+      menuOverlay.classList.add('active');
+      menuOverlay.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+      tl.play();
+      isOpen = true;
+    };
+
+    let closeMenu = () => {
+      menuOverlay.style.clipPath = "polygon(0 0, 0 0, 0 100%, 0 100%)"
+      tl.reverse();
+      isOpen = false;
+    };
+
+    document.querySelector(".open-menu-btn").addEventListener("click", openMenu );
+      // if (!isOpen) {
+      //   openMenu();
+      // } else {
+      //   closeMenu();
+      // }
+    
+
+    document.querySelector(".menu-close-btn").addEventListener("click", closeMenu);
+
+
+
+    tl.to(".video-preview", {
+      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      duration: 1.4,
+      height: "150px",
+    }, "a");
+
+    tl.to(".menu-links, .btn", {
+      duration:1.4,
+      y: 0,
+      ease: Power2,
+      opacity: 1,
+    }, "a");
+
+    tl.to(".menu-divider", {
+      duration: 2,
+      width: "100%",
+      ease: Power4.easeOut,
+    }, "a");
+
+    // Ensure the timeline is reversed initially
+    tl.reverse();
+  });
+};
+navMenu();
 
 let cursorAnim = () => {
   pageContent.addEventListener("mousemove", (dets) => {
@@ -106,6 +156,7 @@ let lineAnim = () => {
     })
 }
 lineAnim()
+
 let numAnim = () =>{
   gsap.to(number , {
     y : 0 ,
@@ -121,6 +172,7 @@ let numAnim = () =>{
   })
 }
 numAnim()
+
 let sliderAnim = () => {
   var swiper = new Swiper(".mySwiper", {
     spaceBetween : 20 ,
@@ -135,6 +187,7 @@ let sliderAnim = () => {
   });
 }
 sliderAnim()
+
 let lastHeading = () => {
   gsap.to("#footer-heading h1", {
     delay: 1,
